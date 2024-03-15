@@ -14,13 +14,14 @@ const correctNumber=(msg,color,scoreInput)=>{
     message.textContent = msg
     document.querySelector('body').style.backgroundColor=color
     scores.textContent =scoreInput
-    number.textContent=secret
+    number.textContent=secretNumber
 }
 
 const gameOver =(msg,color)=>{
     message.textContent = msg;
     document.querySelector('body').style.backgroundColor=color
     scores.textContent = 0
+    number.textContent=secretNumber
 }
 
 const wrongNumber =(msg,scoreInput,color)=>{
