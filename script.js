@@ -15,6 +15,7 @@ const correctNumber=(msg,color,scoreInput)=>{
     document.querySelector('body').style.backgroundColor=color
     scores.textContent =scoreInput
     number.textContent=secretNumber
+    highscores(score)
 }
 
 const gameOver =(msg,color)=>{
@@ -34,34 +35,34 @@ const wrongNumber =(msg,scoreInput,color)=>{
 }
 
 const highscores =(scoreInput)=> {
-    if (scoreInput > Number(highscore.textContent)) {
-       highscore.textContent = scoreInput
+    if (scoreInput > highscore) {
+        highscore = scoreInput
+        document.querySelector('.highscore').textContent=highscore
     }   
+}
 
-    return scoreInput
+const compare = (guess)=> {
+    if (score > 1) {
+        guess > secretNumber ? wrongNumber('Too high', score, '#ff7400'):wrongNumber('Too Low', score, '#ff7400')
+    } else {
+        gameOver('you lost the game', '#fd0505')
+    }
 }
 
 
-const compare = ()=> {
+const start = ()=> {
     const guess =Number(document.querySelector('.guess').value)
-    
+
     if (!guess) {
         message.textContent = "No Number";
     } else if (guess === secretNumber) {
         correctNumber('Correct Number','#60b347',score)
-        if (score > highscore) {
-            highscores(score)
-        }
     } else if (guess !== secretNumber) {
-        if (score > 1) {
-            guess > secretNumber ? wrongNumber('Too high', score, '#ff7400'):wrongNumber('Too Low', score, '#ff7400')
-        } else {
-            gameOver('you lost the game', '#fd0505')
-        }
+        compare(guess)
     }
 }
 
-const restart =()=>{
+const playAgain =()=>{
     score = 20 
     scores.textContent=score
     secretNumber = Math.trunc(Math.random() * 20) + 1;
@@ -72,7 +73,7 @@ const restart =()=>{
 }
 
 
-document.querySelector('.check').addEventListener('click',compare)
-document.querySelector('.again').addEventListener('click',restart)
+document.querySelector('.check').addEventListener('click',start)
+document.querySelector('.again').addEventListener('click',playAgain)
 
 
